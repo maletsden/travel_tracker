@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Simple Map</title>
+  <meta name="viewport" content="initial-scale=1.0">
+  <meta charset="utf-8">
+  <style>
+    /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+    #map {
+      height: 100%;
+    }
+
+    /* Optional: Makes the sample page fill the window. */
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .gmnoprint {
+      display: none;
+    }
+  </style>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/solid.css"
+    integrity="sha384-ioUrHig76ITq4aEJ67dHzTvqjsAP/7IzgwE7lgJcg2r7BRNGYSK0LwSmROzYtgzs" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/fontawesome.css"
+    integrity="sha384-sri+NftO+0hcisDKgr287Y/1LVnInHJ1l+XC7+FOabmTTIK0HnE2ID+xxvJ21c5J" crossorigin="anonymous">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/static/css/left_menu.css">
+
+</head>
+
+<body>
+
+  <!-- LEFT manu -->
+  <nav id='left_manu'>
+    <div class='menu__container'>
+      <div class='menu__header'>
+        Твоя ідеальна поїздка
+      </div>
+      <div class='menu__places' id='left_menu__places'></div>
+      <div class='menu__footer'>
+
+        <div class='menu__footer-container'>
+          <div class='menu__footer-text'>
+            Загальний час:
+          </div>
+          <span id='left_menu__duration'>0 хв</span>
+
+        </div>
+        <div class='menu__footer-container'>
+          <div class='menu__footer-text'>
+            Загальна відстань:
+          </div>
+          <span id='left_menu__distance'>0</span> км
+
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- MAIN -->
+  <main>
+    <div class='navbar_open button' id='navbar_open'>
+      <div class='navbar_open__hamburger'></div>
+    </div>
+    <div id='map'></div>
+    <div id="infowindow-content">
+        <img src="" width="16" height="16" id="place-icon">
+        <span id="place-name"  class="title"></span><br>
+        <span id="place-address"></span>
+      </div>
+  
+    <div class='layers_open button' id='layers_open'>
+        <i class="fas fa-layer-group"></i>
+    </div>
+
+    <div class='search_open button'>
+        <i class="fas fa-search" style='z-index:10' id='search_open'></i>
+        <input class="search" id='search'></input>
+    </div>
+
+  </main>
+
+  <nav id="layer_menu">
+      <div class='menu__container'>
+          <div class='menu__header'>
+            Шари карти
+          </div>
+          <div class='menu__places' id='layer_menu__places' style='height:90%'></div>
+          
+        </div>
+  </nav>
+
+  <script>
+    const CASTLES = {{castles | tojson}};
+  </script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJA8mR08RWbU5J1USHPCX0ZgLHD8xjpbk&libraries=places&callback=initMap"
+    async defer></script>
+  <script src="/static/js/map.js"></script>
+
+</body>
+
+</html>
