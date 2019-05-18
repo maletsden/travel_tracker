@@ -1,8 +1,8 @@
 class HelperSetup {
-    constructor(map) {
-        this.map = map;
-        this.right_menu = map.right_menu;
-        this.left_menu = map.left_menu;
+    constructor(traveltracker) {
+        this.map = traveltracker.map;
+        this.right_menu = traveltracker.right_menu;
+        this.left_menu = traveltracker.left_menu;
 
         // set ids
         this.helper_ids = [
@@ -14,7 +14,7 @@ class HelperSetup {
         // set callbacks
         this.helper_callbacks = [
             () => { // 'Вибери макрер'
-                this.right_menu.switch()
+                this.right_menu.switch_layers()
             },
             () => { // 'Скористайся пошуком'
                 this.right_menu.hide_helper();
