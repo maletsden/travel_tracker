@@ -6,7 +6,7 @@
   <meta name="viewport" content="initial-scale=1.0">
   <meta charset="utf-8">
   <style>
-    /* Always set the map height explicitly to define the size of the div
+    /* Always set the map height explicitly to define the size of the div§
        * element that contains the map. */
     #map {
       height: 100%;
@@ -58,7 +58,6 @@
             Загальна відстань:
           </div>
           <span id='left_menu__distance'>0</span> км
-
         </div>
       </div>
     </div>
@@ -67,44 +66,145 @@
 
   <!-- MAIN -->
   <main>
+    <!-- navbar open -->
     <div class='navbar_open button' id='navbar_open'>
       <div class='navbar_open__hamburger'></div>
     </div>
+    <!-- Map -->
     <div id='map'></div>
+    <!-- popup for autocompleter -->
     <div id="infowindow-content">
-        <img src="" width="16" height="16" id="place-icon">
-        <span id="place-name"  class="title"></span><br>
-        <span id="place-address"></span>
-      </div>
-  
-    <div class='layers_open button' id='layers_open'>
-        <i class="fas fa-layer-group"></i>
+      <img src="" width="16" height="16" id="place-icon">
+      <span id="place-name" class="title"></span><br>
+      <span id="place-address"></span>
     </div>
 
+    <!-- Layers open -->
+    <div class='layers_open button' id='layers_open'>
+      <i class="fas fa-layer-group"></i>
+    </div>
+
+    <!-- Search open -->
     <div class='search_open button'>
-        <i class="fas fa-search" style='z-index:10' id='search_open'></i>
-        <input class="search" id='search'></input>
+      <i class="fas fa-search" style='z-index:10' id='search_open'></i>
+      <input class="search" id='search'></input>
+    </div>
+
+    <!-- Help open -->
+    <div class='help_open button' id='help_open'>
+      <i class="fas fa-question"></i>
     </div>
 
   </main>
 
+  <!-- Layers menu -->
   <nav id="layer_menu">
-      <div class='menu__container'>
-          <div class='menu__header'>
-            Шари карти
+    <div class='menu__container'>
+      <div class='menu__header'>
+        Шари карти
+      </div>
+      <div class='menu__places' id='layer_menu__places' style='height:90%'>
+
+
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- Helper menu -->
+  <nav id="helper_menu">
+    <div class='menu__container'>
+      <div class='menu__header'>
+        Як це працює
+      </div>
+      <div class='menu__places' id='layer_menu__places' style='height:90%'>
+        <div class="place">
+          <i class="place__icon fas fa-caret-right"></i>
+          <div class="place__text">
+            1. Обери найцікавіші місця
           </div>
-          <div class='menu__places' id='layer_menu__places' style='height:90%'></div>
-          
         </div>
+        <div class='slide_tab'>
+            <div class="place" id='help__choose_marker'>
+                <i class="slide_tab__icon fas fa-angle-double-right"></i>
+                <div class="place__text">
+                  Вибери макрер з уже існуючих
+                </div>
+              </div>
+
+              <div class="place" id='help__search_marker'>
+                  <i class="slide_tab__icon fas fa-angle-double-right"></i>
+                  <div class="place__text">
+                    Скористайся пошуком
+                  </div>
+                </div>
+        </div>
+
+        <div class="place">
+          <i class="place__icon fas fa-caret-right"></i>
+          <div class="place__text">
+            2. Проглянь маршрут
+          </div>
+        </div>
+        <div class='slide_tab'>
+            <div class="place" id='help__see_duration'>
+                <i class="slide_tab__icon fas fa-angle-double-right"></i>
+                <div class="place__text">
+                  Дізнайся скільки часу займе подорож
+                </div>
+              </div>
+
+              <div class="place" id='help__see_distance'>
+                  <i class="slide_tab__icon fas fa-angle-double-right"></i>
+                  <div class="place__text">
+                    Отримай точний кілометраж мандрівки
+                  </div>
+                </div>
+        </div>
+
+
+
+        <div class="place">
+          <i class="place__icon fas fa-caret-right"></i>
+          <div class="place__text">
+            3. Збирайся в дорогу
+          </div>
+        </div>
+        <div class='slide_tab'>
+            <div class="place" id='help__discover_prices'>
+                <i class="slide_tab__icon fas fa-angle-double-right"></i>
+                <div class="place__text">
+                  Дізнайся скільки грошей варто прихопити з собою
+                </div>
+              </div>
+
+              <div class="place" id='help__book_hotel'>
+                  <i class="slide_tab__icon fas fa-angle-double-right"></i>
+                  <div class="place__text">
+                    Знайди де переночувати
+                  </div>
+                </div>
+        </div>
+      </div>
+
+
+
+    </div>
   </nav>
 
   <script>
-    const CASTLES = {{castles | tojson}};
+    const CASTLES = {{ castles | tojson }};
   </script>
 
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJA8mR08RWbU5J1USHPCX0ZgLHD8xjpbk&libraries=places&callback=initMap"
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJA8mR08RWbU5J1USHPCX0ZgLHD8xjpbk&libraries=places&callback=initMap"
     async defer></script>
-  <script src="/static/js/map.js"></script>
+    <script src="/static/js/marker.js"></script>
+    <script src="/static/js/menus.js"></script>
+    <script src="/static/js/helper.js"></script>
+    <script src="/static/js/autocomleter.js"></script>
+    <script src="/static/js/track.js"></script>
+    <script src="/static/js/map.js"></script>
 
 </body>
 
