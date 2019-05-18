@@ -160,7 +160,7 @@ main {
 
 .menu__container>div {
     box-sizing: border-box;
-    padding: 5%;
+    padding: 0 5%;
 }
 
 /* --- TRACKER-header styles --- */
@@ -245,8 +245,35 @@ main {
     justify-content: center;
     align-items: center;
     color: #656665;
+}
+
+.menu__footer-layers_hide {
 
 }
+
+.menu__footer-layers_active_buttons {
+    border-top: 3px solid red;
+    height: 10%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 125%;
+}
+
+.menu__footer-small-container {
+    display: flex;
+    justify-content: center;
+
+    width: 50%;
+}
+
+.menu__footer-icon {
+    color: red;
+    margin-right: 5%;
+}
+
+
 
 
 /* --- SEARCH --- */
