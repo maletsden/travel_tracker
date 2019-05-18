@@ -3,7 +3,7 @@ class Actions {
         this.move_left = 'move_left';
         this.move_rigth = 'move_right';
     }
-    
+
     body_add_move_left() {
         document.body.classList.add(this.move_left);
     }
@@ -45,7 +45,7 @@ class LeftMenu extends Actions {
         this.tracker_places = document.getElementById('left_menu__places');
         this.tracker_distance = document.getElementById('left_menu__distance');
         this.tracker_duration = document.getElementById('left_menu__duration');
-        
+
     }
 
     show_tracker() {
@@ -80,14 +80,19 @@ class LeftMenu extends Actions {
 
 
 class RightMenu extends Actions {
-    constructor() {
+    constructor(traveltracker) {
         super();
+        this.traveltracker = traveltracker;
         this.layers_open = document.getElementById('layers_open');
         this.layers_menu = document.getElementById('layer_menu');
         this.help_open = document.getElementById('help_open');
         this.helper_menu = document.getElementById('helper_menu');
         this.search_open = document.getElementById('search_open');
         this.search = document.getElementById('search');
+        this.show_all_layers = document.getElementById('show_all_layers');
+        this.hide_all_layers = document.getElementById('hide_all_layers');
+        this.transition_time = 400;
+        this.timer = setTimeout(() => {}, 0);
 
         // add listeners
         this.buttons_ids = [
@@ -98,13 +103,13 @@ class RightMenu extends Actions {
 
         this.buttons_callbacks = [
             () => {
-                this.switch();
+                this.switch_layers();
             },
             () => {
                 this.toggle_search();
             },
             () => {
-                this.switch();
+                this.switch_helper();
             }
         ];
 
@@ -115,27 +120,52 @@ class RightMenu extends Actions {
 
             document.getElementById(id).onclick = callback;
         }
+
+        // set listeners for hide/show all butttons
+        hide_all_layers.onclick = () => {
+            this.traveltracker.allMarkersSetVisibility(false);
+        };
+
+        show_all_layers.onclick = () => {
+            this.traveltracker.allMarkersSetVisibility(true);
+        };
     }
 
     hide_layers() {
-        this.disactive(this.layers_menu);
-        this.disactive(this.helper_menu);
+        this.inactive(this.layers_menu);
+        this.inactive(this.helper_menu);
         this.body_remove_move_left();
     }
 
-    hide_helper() {        
-        this.disactive(this.layers_menu);
-        this.disactive(this.helper_menu);
+    hide_helper() {
+        this.inactive(this.layers_menu);
+        this.inactive(this.helper_menu);
+
         this.body_remove_move_left();
     }
 
     show_layers() {
+        this.layers_menu.style.zIndex = 20;
+        this.helper_menu.style.zIndex = 10;
+
         this.active(this.layers_menu);
+        this.inactive(this.helper_menu);
+
+
+
+        console.dir(this.helper_menu);
+        console.dir(this.layers_menu);
+
         this.body_add_move_left();
     }
 
     show_helper() {
+        this.layers_menu.style.zIndex = 10;
+        this.helper_menu.style.zIndex = 20;
+
         this.active(this.helper_menu);
+        this.inactive(this.layers_menu);
+
         this.body_add_move_left();
     }
 
@@ -143,14 +173,49 @@ class RightMenu extends Actions {
         menu.active = true;
     }
 
-    disactive(menu) {
+    inactive(menu) {
         menu.active = false;
     }
 
-    switch() {
-
+    toggle(menu) {
+        menu.active = !menu.active;
     }
 
+    switch_layers() {
+        if (this.is_active(this.layers_menu)) {
+            this.hide_layers();
+        } else if (this.is_active(this.helper_menu)) {
+            clearTimeout(this.timer);
+            this.hide_helper();
+            this.timer = setTimeout(() => {
+                // delay
+                this.show_layers();
+            }, this.transition_time);
+
+        } else {
+            this.show_layers();
+        }
+    }
+
+    switch_helper() {
+        if (this.is_active(this.helper_menu)) {
+            this.hide_helper();
+        } else if (this.is_active(this.layers_menu)) {
+            clearTimeout(this.timer);
+            this.hide_layers();
+            this.timer = setTimeout(() => {
+                // delay
+                this.show_helper();
+            }, this.transition_time);
+
+        } else {
+            this.show_helper();
+        }
+    }
+
+    is_active(menu) {
+        return menu.active;
+    }
     show_search() {
         this.search.classList.add('searc_active');
     }
