@@ -1,0 +1,283 @@
+/* --- LEFT menu animation --- */
+html {
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+}
+
+
+body {
+    position: absolute;
+    left: 0;
+    transition: left .8s;
+
+}
+
+.button {
+    z-index: 5;
+    position: absolute;
+    background: white;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 2px;
+    height: 40px;
+    width: 40px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+    border: 0px;
+    margin: 10px;
+    padding: 0px;
+
+}
+
+.navbar_open {
+    top: 0px;
+    left: 0px;
+}
+
+main {
+    width: 100vw;
+    height: 100vh;
+}
+
+
+#left_manu {
+    box-shadow: 5px 0px 10px 0px rgba(0, 0, 0, 0.5);
+    height: 100vh;
+    position: absolute;
+    left: -80vw;
+    top: 0;
+    z-index: 6;
+}
+
+@media (min-width: 600px) {
+    .move_left {
+        left: 40vw;
+    }
+
+    .move_right {
+        left: -40vw;
+    }
+
+    #left_manu {
+        width: 40vw;
+        left: -40vw;
+    }
+
+    #layer_menu {
+        width: 40vw;
+        right: -40vw;
+    }
+}
+
+@media (max-width: 600px) {
+    .move_left {
+        left: 80vw;
+    }
+
+    .move_right {
+        left: -80vw;
+    }
+
+    #left_manu {
+        width: 80vw;
+        left: -80vw;
+    }
+
+    #layer_menu {
+        width: 80vw;
+        right: -80vw;
+    }
+}
+
+/* --- MENU humberger */
+.navbar_open__hamburger {
+    width: 55%;
+    height: 10%;
+    position: absolute;
+    background: #656665;
+    top: 50%;
+    left: 50%;
+    border-radius: 5%;
+    transform: translate(-50%, -50%);
+    transition: .5s;
+}
+
+.navbar_open__hamburger:before,
+.navbar_open__hamburger:after {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: #656665;
+    border-radius: 5%;
+    transition: .5s;
+}
+
+.navbar_open__hamburger:before {
+    top: -200%;
+}
+
+.navbar_open__hamburger:after {
+    top: 200%;
+}
+
+.navbar_open-active .navbar_open__hamburger {
+    background: rgba(0, 0, 0, 0);
+}
+
+.navbar_open-active .navbar_open__hamburger:before {
+    transform: rotate(45deg);
+    top: 0;
+}
+
+.navbar_open-active .navbar_open__hamburger:after {
+    transform: rotate(-45deg);
+    top: 0;
+}
+
+
+/* --- TRACKER styles --- */
+
+.menu__container {
+    font-family: Arial, Helvetica, sans-serif;
+    width: 100%;
+    height: 100%;
+    background: white;
+}
+
+.menu__container>div {
+    box-sizing: border-box;
+    padding: 5%;
+}
+
+/* --- TRACKER-header styles --- */
+
+.menu__header {
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 150%;
+    font-weight: bold;
+    border-bottom: 3px solid red;
+}
+
+/* --- TRACKER-main styles --- */
+
+.menu__places {
+    height: 75%;
+    overflow: scroll;
+    display: block;
+}
+
+/* --- TRACKER-footer styles --- */
+
+.menu__footer-text {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.menu__footer {
+    height: 15%;
+    border-top: 3px solid red;
+    box-sizing: border-box;
+    font-size: 130%;
+}
+
+.menu__footer-container {
+    height: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+}
+
+
+/* --- PLACE styles --- */
+.place {
+    height: 5%;
+    width: 100%;
+    margin: 5% auto;
+    display: flex;
+    border-bottom: 1px solid rgb(151, 151, 151);
+    padding-bottom: 2%;
+}
+
+.place__icon {
+    color: red;
+    font-size: 180%;
+    margin-right: 15px;
+}
+
+.place__text {
+    width: 80%;
+    display: flex;
+    align-items: center;
+}
+
+
+/* --- LAYER Menu --- */
+#layer_menu {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+    height: 100vh;
+    position: absolute;
+    top: 0;
+}
+
+.layers_open {
+    top: 50px;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #656665;
+
+}
+
+
+/* --- SEARCH --- */
+
+.search_open {
+    top: 100px;
+    right: 0;
+    color: #656665;
+    z-index: 10;
+}
+
+#search_open {
+    display: block;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.search {
+    border: 0;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+    position: absolute;
+    height: 100%;
+    width: 0;
+    background: white;
+    z-index: 0;
+    right: 0;
+    top: 0;
+    transition: .5s;
+    color: #656665;
+    box-sizing: border-box;
+
+}
+
+.search:focus {
+    outline: 0;
+}
+
+.searc_active {
+    width: 600%;
+    transform: translateX(-20%);
+    padding: 0 20%;
+
+}
