@@ -1,93 +1,7 @@
 function initMap() {
     map = new TravelTracker('map');
     map.setMarkers();
-
-    console.log(map.layers);
-
-    new HelperSetup(map);
-
 }
-
-// ADD CLICK Event for the sidebar
-// const navbar_open = document.getElementById('navbar_open');
-// const layers_open = document.getElementById('layers_open');
-// const search_open = document.getElementById('search_open');
-// const help_open = document.getElementById('help_open');
-// const layers_menu = document.getElementById('layer_menu');
-// const helper_menu = document.getElementById('helper_menu');
-// const body_classes = document.body.classList;
-
-
-// navbar_open.addEventListener('click', () => {
-//     document.body.classList.toggle('move_right');
-//     navbar_open.classList.toggle('navbar_open-active');
-// });
-
-// search_open.addEventListener('click', () => {
-//     document.getElementById('search').classList.toggle('searc_active');
-// });
-
-// let timer = setTimeout(() => {}, 380);
-// layers_open.addEventListener('click', () => {
-    
-//     if (helper_menu.active) { // switch tab
-//         (() => {
-//             clearTimeout();
-//             helper_menu.active = true;
-//             layers_menu.active = false;
-//         })();
-//         document.body.classList.toggle('move_left');
-        
-        
-//         timer = setTimeout(() => {            
-//             layers_menu.style.zIndex = 20;
-//             helper_menu.style.zIndex = 10;
-//             helper_menu.active = false;
-//             layers_menu.active = true;
-//             document.body.classList.toggle('move_left');
-//         }, 370);
-//     } else if (layers_menu.active) { // close tab
-//         layers_menu.active = false;
-//         helper_menu.active = false;
-//         document.body.classList.toggle('move_left');
-//     } else { // open the tab
-//         layers_menu.style.zIndex = 20;
-//         helper_menu.style.zIndex = 10;
-//         layers_menu.active = true;
-//         helper_menu.active = false;
-//         document.body.classList.toggle('move_left');
-//     }
-// });
-
-
-// help_open.addEventListener('click', () => {
-//     if (layers_menu.active) { // switch tab
-//         (() => {
-//             clearTimeout(timer);
-//             helper_menu.active = false;
-//             layers_menu.active = true;
-//         })();
-//         document.body.classList.toggle('move_left');
-//         timer = setTimeout(() => {
-
-//             layers_menu.style.zIndex = 10;
-//             helper_menu.style.zIndex = 20;
-//             layers_menu.active = false;
-//             helper_menu.active = true;
-//             document.body.classList.toggle('move_left');
-//         }, 370);
-//     } else if (helper_menu.active) { // close tab
-//         helper_menu.active = false;
-//         layers_menu.active = false;
-//         document.body.classList.toggle('move_left');
-//     } else { // open the tab
-//         helper_menu.style.zIndex = 20;
-//         layers_menu.style.zIndex = 10;
-//         layers_menu.active = true;
-//         helper_menu.active = false;
-//         document.body.classList.toggle('move_left');
-//     }
-// });
 
 class TravelTracker {
     constructor(map_id) {
@@ -120,13 +34,13 @@ class TravelTracker {
         this.start_layer = 'Тернопілля';
 
         // Right Menu
-        this.right_menu = new RightMenu();
-
-        // Geocoder
-        this.geocoder = new google.maps.Geocoder();
+        this.right_menu = new RightMenu(this);
 
         // Autocomplete
         this.autocomplete = new Autocomplete(this, 'search');
+
+        // Healper
+        this.helper = new HelperSetup(this);
     }
 
     setMarkers() {
@@ -144,13 +58,35 @@ class TravelTracker {
         }
     }
 
+    allMarkersSetVisibility(visible) {
+        for (const region in this.layers) {
+            if (this.layers.hasOwnProperty(region)) {
+                // const element = this.layers[region];
+                for (const marker of this.layers[region]) {
+                    marker.setVisible(visible);
+                }
+            }
+        }
+
+        const layers = document.getElementsByClassName('layer_class');
+        for (const layer of layers) {
+            if (visible) {
+                layer.classList.remove('fa-plus');
+                layer.classList.add('fa-minus');
+            } else {
+                layer.classList.add('fa-plus');
+                layer.classList.remove('fa-minus');
+            }
+        }
+
+    }
     addLayer(title) {
         // Add To Layer Menu
         this.layers_places.appendChild(this.createLayer(title,
             title === this.start_layer ? 'fa-minus' : 'fa-plus'));
     }
 
-    addPlace(marker) {        
+    addPlace(marker) {
         // Prevent adding the same marker suborder
         if (marker.information == this.track[this.track.length - 1]) return;
 
@@ -171,7 +107,7 @@ class TravelTracker {
         let layer = document.createElement('div');
         layer.classList.add('place');
         let i = document.createElement('i');
-        i.className = `place__icon fas ${icon_type}`;
+        i.className = `place__icon layer_class fas ${icon_type}`;
         i.layer = title;
         layer.appendChild(i);
         let div = document.createElement('div');
